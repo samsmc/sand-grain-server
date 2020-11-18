@@ -3,8 +3,15 @@ const Schema = mongoose.Schema;
 
 // Creamos el modelo User
 const userSchema = new Schema({
-    username: String,
-    password: String,
+    username: {type: String, required: true},
+    email: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    address: String,
+    phone: String,
+    createdEvents: [{type: Schema.Types.ObjectId,ref:'Events'}], /* to check */
+    joinedEvents: [{type: Schema.Types.ObjectId,ref:'Events'}], /* to check */
+    favorites: [],
+    stars:{type: Number},
   }, {
     timestamps: {
       createdAt: 'created_at',
