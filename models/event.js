@@ -5,6 +5,7 @@ const eventSchema = new Schema({
   name: { type: String, required: true },
   img: { type: String, required: true },
   description: { type: String, required: true },
+  participantsLimit: Number,
   participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   organizer: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   location: { type: String, required: true },

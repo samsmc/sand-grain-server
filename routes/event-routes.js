@@ -49,7 +49,7 @@ router.get('/:id', (req, res, next) => {
     // our projects have array of tasks' ids and
     // we can use .populate() method to get the whole task objects
 
-    Event.findById(req.params.id)/* .populate('') */
+    Event.findById(req.params.id).populate('participants')
         .then(response => {
             res.status(200).json(response);
         })
@@ -102,13 +102,12 @@ router.delete('/delete/:id', (req, res, next) => {
             })
     }); */
 
-        router.get('/participants', (req, res, next) => {
-            Event.find((err, foundParticipants) => {
-                if (!err) {
-                    res.send(foundParticipants);
-                } else {
-                    res.send(err);
-                }
+        router.get('/participants/:id', (req, res, next) => {
+            Event.findById(req.params.id)
+        .then(datos =>
+            res.json(datos))
+            .catch(err => {
+                res.json(err);
             })
         })
 });
