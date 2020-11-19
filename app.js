@@ -11,7 +11,11 @@ const MongoStore = require("connect-mongo")(session);
 const cors = require("cors");
 
 const auth = require("./routes/auth");
-const events = require("./routes/event-routes");
+const eventsRouter = require("./routes/event-routes");
+const usersRouter = require("./routes/user-routes");
+const indexRouter = require("./routes/index");
+
+
 // MONGOOSE CONNECTION
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -65,7 +69,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTER MIDDLEWARE
 app.use("/auth", auth);
-app.use("/events", events);
+app.use("/events", eventsRouter);
+app.use("/user", usersRouter);
+app.use("/", indexRouter);
+
+
 // ERROR HANDLING
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
