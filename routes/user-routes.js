@@ -19,14 +19,12 @@ router.get('/userDetails', (req, res, next) => {
     res.render('/userDetails');
 })
 
-router.post('/userDetails', async (req, res, next) => {
-    /* let idUser = req.session.currentUser._id; */
-    console.log(req.session)
-    console.log(req.body)
+router.post('/userDetails/:id', async (req, res, next) => {
+    let idUser = req.params.id;
     const { username, email, address, phone } = req.body;
         try {
-       /*  let updateUser = await User.findByIdAndUpdate(idUser, { username, email, address, phone }, { new: true }); */
-       /*  res.json(updateUser) */
+        let updateUser = await User.findByIdAndUpdate(idUser, { username, email, address, phone }, { new: true });
+        res.status(200).json(updateUser)
     } catch (err) {
         console.log(err)
     }

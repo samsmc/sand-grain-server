@@ -68,10 +68,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTER MIDDLEWARE
-app.use("/auth", auth);
+
 app.use("/events", eventsRouter);
 app.use("/user", usersRouter);
 app.use("/", indexRouter);
+app.use("/auth", auth);
 
 
 // ERROR HANDLING
