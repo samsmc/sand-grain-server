@@ -6,26 +6,27 @@ const uploadCloud = require("../config/cloudinary");
 const User = require("../models/user");
 
 //ruta de User Account:
-router.get('/user', (req, res, next) => {
-    res.render('/user'); /* <-- para alterar */
+router.get('/', (req, res, next) => {
+    res.render('/'); /* <-- para alterar */
 });
 
-router.post('/user/evolves', async (req, res, next) => {
+router.post('/evolves', async (req, res, next) => {
     const idUser = req.userID;
     res.render('/'); /* <-- para alterar */
 })
 
-router.get('/user/userDetails', (req, res, next) => {
+router.get('/userDetails', (req, res, next) => {
     res.render('/userDetails');
 })
 
-router.post('/user/userDetails', uploadCloud.single("userPhoto"), async (req, res, next) => {
-    let idUser = req.userID;
-    const { name, email, address, phone } = req.body;
-    const userPhoto = req.file.url;
-    try {
-        let updateUser = await User.findByIdAndUpdate(idUser, { name, email, address, phone, userPhoto }, { new: true });
-        res.redirect('/user/userDetails');
+router.post('/userDetails', async (req, res, next) => {
+    /* let idUser = req.session.currentUser._id; */
+    console.log(req.session)
+    console.log(req.body)
+    const { username, email, address, phone } = req.body;
+        try {
+       /*  let updateUser = await User.findByIdAndUpdate(idUser, { username, email, address, phone }, { new: true }); */
+       /*  res.json(updateUser) */
     } catch (err) {
         console.log(err)
     }
