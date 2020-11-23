@@ -14,7 +14,7 @@ const auth = require("./routes/auth");
 const eventsRouter = require("./routes/event-routes");
 const usersRouter = require("./routes/user-routes");
 const indexRouter = require("./routes/index");
-
+const uploadRouter = require("./routes/file-upload-routes");
 
 // MONGOOSE CONNECTION
 mongoose
@@ -73,7 +73,7 @@ app.use("/events", eventsRouter);
 app.use("/user", usersRouter);
 app.use("/", indexRouter);
 app.use("/auth", auth);
-
+app.use("/", uploadRouter);
 
 // ERROR HANDLING
 // catch 404 and forward to error handler

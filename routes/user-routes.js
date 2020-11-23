@@ -23,7 +23,7 @@ router.post('/userDetails/:id', async (req, res, next) => {
     let idUser = req.params.id;
     const { username, email, address, phone } = req.body;
         try {
-        let updateUser = await User.findByIdAndUpdate(idUser, { username, email, address, phone }, { new: true });
+        let updateUser = await User.findByIdAndUpdate(idUser, { username, email, address, phone, userPhoto:req.body.imgUrl }, { new: true });
         res.status(200).json(updateUser)
     } catch (err) {
         console.log(err)
