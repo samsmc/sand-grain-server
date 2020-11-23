@@ -26,6 +26,23 @@ router.post("/add-event", (req, res, next) => {
         });
 });
 
+// POST route => to create a new event
+router.post("/add-participant-to-event", (req, res, next) => {
+    let eventId = req.body.event;
+    let user = req.body.user;
+
+    console.log(`Event: ${eventId}  User: ${user}`)
+
+    Event.findByIdAndUpdate(eventId,
+        { $addToSet: { participants: user } }
+    ).then(response => {
+        res.json(response);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
 // GET route => to get all the events
 router.get('/', (req, res, next) => {
     Event.find().populate('organizer').populate('participants')

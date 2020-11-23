@@ -19,7 +19,7 @@ router.get('/userDetails', (req, res, next) => {
     res.render('/userDetails');
 })
 
-router.post('/userDetails/:id', async (req, res, next) => {
+router.put('/userDetails/:id', async (req, res, next) => {
     let idUser = req.params.id;
     const { username, email, address, phone } = req.body;
         try {
