@@ -33,6 +33,28 @@ router.post("/add-event", isLoggedIn(), (req, res, next) => {
         });
 });
 
+router.put("/update-event", isLoggedIn(), (req, res, next) => {
+    Event.findByIdAndUpdate(req.body._id, 
+        {
+        organizer: req.session.currentUser,
+        name: req.body.name,
+        img: req.body.img,
+        description: req.body.description,
+        location: req.body.location,
+        participantsLimit: req.body.participantsLimit,
+        date: req.body.date,
+        time: req.body.time,
+        category: req.body.category,
+        stars: req.body.stars,
+    })
+        .then(response => {
+            res.json(response);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
+
 // POST route => to create a new event
 router.post("/add-participant-to-event", (req, res, next) => {
     let eventId = req.body.event;
@@ -42,6 +64,23 @@ router.post("/add-participant-to-event", (req, res, next) => {
 
     Event.findByIdAndUpdate(eventId,
         { $addToSet: { participants: user } }
+    ).then(response => {
+        res.json(response);
+    })
+    .catch(err => {
+        res.json(err);
+    });
+});
+
+// POST route => to create a new event
+router.put("/delete-participant-to-event", (req, res, next) => {
+    let eventId = req.body.event;
+    let user = req.body.user;
+
+    console.log(`Event: ${eventId}  User: ${user}`)
+
+    Event.findByIdAndUpdate(eventId,
+        { $pull: { participants: user } }
     ).then(response => {
         res.json(response);
     })
