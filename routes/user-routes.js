@@ -38,12 +38,17 @@ router.put('/userDetails/:id', async (req, res, next) => {
     }
 });
 
-router.get('/userJoinedEvents', (req, res, next) => {
+router.get('/userJoinedEvents', isLoggedIn(), async (req, res, next) => {
+
+    const joinedUserId = req.session.currentUser._id
 
     try {
-        res.redirect('/user/userJoinedEvents');
+        const joinedEventsFound = await Event.find({ participants: joinedUserId })
+            console.log(joinedEventsFound)
+            res.status(200).json(joinedEventsFound)
+        
     } catch (err) {
-        console.log(err, "no events joined");
+        console.log(err, "no events created");
     }
 });
 

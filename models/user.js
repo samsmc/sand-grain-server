@@ -9,8 +9,8 @@ const userSchema = new Schema({
     userPhoto: String,
     address: String,
     phone: String,
-    createdEvents: [{type: Schema.Types.ObjectId,ref:'Events'}], /* to check */
-    joinedEvents: [{type: Schema.Types.ObjectId,ref:'Events'}], /* to check */
+    createdEvents: [{type: Schema.Types.ObjectId,ref:'Events'}], 
+    joinedEvents: [{type: Schema.Types.ObjectId,ref:'Events'}], 
     favorites: [],
     stars:{type: Number},
   }, {
