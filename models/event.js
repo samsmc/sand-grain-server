@@ -7,12 +7,12 @@ const eventSchema = new Schema({
   description: { type: String, required: true },
   participantsLimit: Number,
   participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  organizer: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  location: { type: String, required: true },
-  date: { type: Date, required: true },
-  time: { type: String, required: true },
-  category: { type: String, required: true },
-  stars: { type: Number, required: true }
+  organizer: { type: Schema.Types.ObjectId, ref: 'User' },
+  location: { type: String, /* required: true */ },
+  date: { type: Date, /* required: true */ },
+  time: { type: String, /* required: true */ },
+  category: { type: String},
+  stars: { type: Number},
 });
 
 const Event = mongoose.model("Event", eventSchema);

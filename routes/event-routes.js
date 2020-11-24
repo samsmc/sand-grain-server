@@ -5,9 +5,16 @@ const router = express.Router();
 const Event = require("../models/event");
 const User = require("../models/user");
 
+const {
+    isLoggedIn,
+    isNotLoggedIn,
+    validationLoggin,
+} = require("../helpers/middlewares");
+
 // POST route => to create a new event
-router.post("/add-event", (req, res, next) => {
+router.post("/add-event", isLoggedIn(), (req, res, next) => {
     Event.create({
+        organizer: req.session.currentUser,
         name: req.body.name,
         img: req.body.img,
         description: req.body.description,
