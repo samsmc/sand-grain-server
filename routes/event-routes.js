@@ -82,7 +82,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 // PUT route => to update a specific event
-router.put('/edit/:id', (req, res, next) => {
+router.put('/edit/:id', isLoggedIn(), (req, res, next) => {
 
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         res.status(400).json({ message: 'Specified id is not valid' });
@@ -99,7 +99,7 @@ router.put('/edit/:id', (req, res, next) => {
 })
 
 // DELETE route => to delete a specific event
-router.delete('/delete/:id', (req, res, next) => {
+router.delete('/delete/:id', isLoggedIn(), (req, res, next) => {
 
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         res.status(400).json({ message: 'Specified id is not valid' });
@@ -112,26 +112,6 @@ router.delete('/delete/:id', (req, res, next) => {
         })
         .catch(err => {
             res.json(err);
-        })
-
-    //Participants route
-    /* router.get('/participants', (req, res, next) => {
-        Event.find()
-            .then(allTheParticipants => {
-                res.json(allTheParticipants);
-            })
-            .catch(err => {
-                res.json(err);
-            })
-    }); */
-
-        router.get('/participants/:id', (req, res, next) => {
-            Event.findById(req.params.id)
-        .then(datos =>
-            res.json(datos))
-            .catch(err => {
-                res.json(err);
-            })
         })
 });
 
