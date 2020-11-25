@@ -29,6 +29,7 @@ router.get('/userDetails', (req, res, next) => {
 
 router.put('/userDetails/:id', async (req, res, next) => {
     let idUser = req.params.id;
+    console.log(req.body)
     const { username, email, address, phone } = req.body;
     try {
         let updateUser = await User.findByIdAndUpdate(idUser, { username, email, address, phone, userPhoto: req.body.imgUrl }, { new: true });
@@ -52,6 +53,15 @@ router.get('/userJoinedEvents', isLoggedIn(), async (req, res, next) => {
     }
 });
 
+router.get('/userCreated/:id' ,  isLoggedIn(),  async (req,res , next ) => {
+    console.log("okokokcool");
+    try { 
+        const userfind = await User.findById(req.params.id)
+        res.status(200).json(userfind)
+    } catch (error) {
+         res.status(500).json(error)
+    }
+})
 router.get('/userCreatedEvents', isLoggedIn(), async (req, res, next) => {
 
     const userId = req.session.currentUser._id
